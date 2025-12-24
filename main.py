@@ -1,19 +1,13 @@
-import pandas as pd
-from demographic_data_analyzer import calculate_demographic_data
+from medical_data_visualizer import draw_cat_plot, draw_heat_map
+import matplotlib.pyplot as plt
 
-# Column names for adult.data
-columns = [
-    'age', 'workclass', 'fnlwgt', 'education', 'education-num',
-    'marital-status', 'occupation', 'relationship', 'race', 'sex',
-    'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary'
-]
+# Draw categorical plot
+fig1 = draw_cat_plot()
+fig1.savefig('catplot.png')  # saves figure
+plt.close(fig1)
 
-# Load the data file
-df = pd.read_csv('adult.data', names=columns, sep=',\s*', engine='python')
 
-# Run analysis
-result = calculate_demographic_data(df)
-
-# Print results
-for key, value in result.items():
-    print(f"{key}: {value}")
+# Draw heat map
+fig2 = draw_heat_map()
+fig2.savefig('heatmap.png')  # saves figure
+plt.close(fig2)
