@@ -1,24 +1,19 @@
-from mean_var_std import calculate
+import pandas as pd
+from demographic_data_analyzer import calculate_demographic_data
 
-# List of test cases with 9 numbers each
-test_cases = [
-    [0,1,2,3,4,5,6,7,8],
-    [1,2,3,4,5,6,7,8,9],
-    [9,8,7,6,5,4,3,2,1]
+# Column names for adult.data
+columns = [
+    'age', 'workclass', 'fnlwgt', 'education', 'education-num',
+    'marital-status', 'occupation', 'relationship', 'race', 'sex',
+    'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary'
 ]
 
-# Run all valid test cases
-for i, case in enumerate(test_cases, 1):
-    print(f"\nTest Case {i}: {case}")
-    try:
-        result = calculate(case)
-        print(result)
-    except Exception as e:
-        print(f"Error: {e}")
+# Load the data file
+df = pd.read_csv('adult.data', names=columns, sep=',\s*', engine='python')
 
-# Test ValueError for list with less than 9 elements
-print("\nTesting ValueError for invalid input:")
-try:
-    calculate([1, 2, 3])
-except ValueError as e:
-    print("Passed ValueError Test:", e)
+# Run analysis
+result = calculate_demographic_data(df)
+
+# Print results
+for key, value in result.items():
+    print(f"{key}: {value}")
